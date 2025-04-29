@@ -11,11 +11,17 @@ export async function askQuestion(prompt) {
 
   const formattedHistory = conversationHistory.map(entry => ({
     role: entry.role,
-    data: { text: entry.content || "" } // Ensure 'data.text' is always initialized with a string
+    parts: entry.content
+      ? [
+          {
+            data: { text: entry.content } // Ensure 'data.text' is properly initialized
+          }
+        ]
+      : [] // Handle cases where 'content' is missing
   }));
 
   const response = await ai.models.generateContent({
-    model: 'gemini-1.5-flash-001',
+    model: 'gemini-2.0-flash',
     contents: formattedHistory,
   });
 
