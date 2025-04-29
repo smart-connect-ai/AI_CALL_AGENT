@@ -11,7 +11,7 @@ export async function askQuestion(prompt) {
 
   const formattedHistory = conversationHistory.map(entry => ({
     role: entry.role,
-    data: { text: entry.content } // Ensure the 'data' field is properly initialized
+    data: { text: entry.content || "" } // Ensure 'data.text' is always initialized with a string
   }));
 
   const response = await ai.models.generateContent({
